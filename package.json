@@ -1,0 +1,32 @@
+{
+  "name": "corneliusoctopus",
+  "version": "1.0.0",
+  "description": "NodeJS web service for connection Cornelius <> Octopus",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baonguyenbxl/corneliusoctopus.git"
+  },
+  "keywords": [
+    "cornelius",
+    "octopus",
+    "nodejs",
+    "backend",
+    "web",
+    "webservice",
+    "service"
+  ],
+  "author": "SalesTeck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baonguyenbxl/corneliusoctopus/issues"
+  },
+  "homepage": "https://github.com/baonguyenbxl/corneliusoctopus#readme",
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  }
+}
