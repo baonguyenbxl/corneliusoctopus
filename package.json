@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "NodeJS web service for connection Cornelius <> Octopus",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "test": "node index.js"
   },
