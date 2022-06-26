@@ -4,7 +4,7 @@ export function Config ( props )
     if ( props && Object.prototype.toString.call( props ) === '[object Object]' )
     {
         let path = ( props.path && Object.prototype.toString.call( props.path ) === '[object String]' ) ? `/${props.path}` : "",
-            method = ( props.method && Object.prototype.toString.call( props.method ) === '[object String]' ) ? props.method : "get",
+            method = ( props.method && Object.prototype.toString.call( props.method ) === '[object String]' ) ? `${props.method}` : "get",
             id = ( props.id && ( Object.prototype.toString.call( props.id ) === '[object Number]' || Object.prototype.toString.call( props.id ) === '[object String]' ) ) ? `/${props.id}` : "",
             pathf = ( props.path2 && Object.prototype.toString.call( props.path2 ) === '[object String]' ) ? `/${props.path2}` : "",
             header = { 'X-Requested-With': 'XMLHttpRequest' },
