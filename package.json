@@ -1,7 +1,7 @@
 {
   "name": "corneliusoctopus",
   "version": "1.0.0",
-  "description": "NodeJS web service for connection Cornelius <> Octopus",
+  "description": "NodeJS web service for connection Corilus <> Octopus",
   "main": "index.js",
   "type":"module",
   "scripts": {
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/baonguyenbxl/corneliusoctopus.git"
   },
   "keywords": [
-    "cornelius",
+    "corilus",
     "octopus",
     "nodejs",
     "backend",
