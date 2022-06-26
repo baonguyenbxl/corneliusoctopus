@@ -1,3 +1,4 @@
+import 'dotenv/config';
 export function axiosOctopus ( props )
 {
     let result = undefined;
