@@ -1,4 +1,4 @@
-export function Config ( props )
+export function axiosOctopus ( props )
 {
     let result = undefined;
     if ( props && Object.prototype.toString.call( props ) === '[object Object]' )
@@ -26,7 +26,7 @@ export function Config ( props )
             // `baseURL` will be prepended to `url` unless `url` is absolute.
             // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
             // to methods of that instance.
-            baseURL: "https://",
+            baseURL: "https://service.inaras.be/octopus-rest-api/v1",
 
             // `transformRequest` allows changes to the request data before it is sent to the server
             // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
