@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {axiosOctopus, postAuthentication, getDossiers} from './octopus.data'
+import {axiosOctopus, postAuthentication, getDossiers} from './octopus.data.js'
 export async function authentify ()
 {
     // to avoid getting exceptions but possible status code > 300, always give the right params type  
@@ -9,6 +9,7 @@ export async function authentify ()
         // get config for axios request from template created by functions in file octopus.data > postAuthentication
         const config = axiosOctopus( postAuthentication() );
         const { data } = await axios.request( config );
+        console.log( config );
         if ( data && data[ "token" ] ) resp= data["token"];
     } catch (error) {
         console.log('Error authentication: ',error);
@@ -16,7 +17,7 @@ export async function authentify ()
     return resp;
 }
 
-export async function getDossiers ( token )
+export async function getDossierss ( token )
 {
     let resp = [];
     if ( token && Object.prototype.toString.call( token ) === '[object String]' && token.length>0 )
@@ -38,5 +39,11 @@ export async function getDossiers ( token )
 // example of function to have list of dossiers
 export function listDossiers ()
 {
-    authentify().then( v => getDossiers ).catch( e => { console.log( e ) } );
+    authentify().then( v =>
+    {
+        console.log(v)
+        getDossierss(v)
+    } ).catch( e => { console.log( e ) } );
 }
+
+listDossiers();

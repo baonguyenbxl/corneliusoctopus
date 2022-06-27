@@ -1,4 +1,6 @@
 import 'dotenv/config';
+import http from 'http';
+import https from 'https'
 export function axiosOctopus ( props )
 {
     let result = undefined;
@@ -27,7 +29,7 @@ export function axiosOctopus ( props )
             // `baseURL` will be prepended to `url` unless `url` is absolute.
             // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
             // to methods of that instance.
-            baseURL: "https://service.inaras.be/octopus-rest-api/v1",
+            baseURL: process.env.BASE || "https://service.inaras.be/octopus-rest-api/v1",
 
             // `transformRequest` allows changes to the request data before it is sent to the server
             // This is only applicable for request methods 'PUT', 'POST', 'PATCH' and 'DELETE'
@@ -62,7 +64,7 @@ export function axiosOctopus ( props )
             // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
             // - Browser only: FormData, File, Blob
             // - Node only: Stream, Buffer
-            data: data,
+            data: JSON.stringify(data),
 
             // `timeout` specifies the number of milliseconds before the request times out.
             // If the request takes longer than `timeout`, the request will be aborted.
@@ -152,4 +154,35 @@ export const postDossiersToken = ( token, dossierId, localeId=0 ) =>
     }
 }
 
+export const postInvoicesBook = (did,htoken,bid,jkey,seqnb=0,aubl=false) =>
+{
+    return {
+        method: "post",
+        pathf: "dossiers",
+        id: ( did && ( Object.prototype.toString.call( did ) === '[object String]' || Objet.prototype.toString.call( did ) === '[object Number]' ) ) ? `${did}` : "",
+        path: "invoices/book",
+        header: {
+            dossierToken: ( htoken && Object.prototype.toString.call( htoken ) === '[object String]' )?`${htoken}`:""
+        },
+        query: {
+            bookyearId: ( bid && Object.prototype.toString.call( bid ) === '[object Number]' ) ? bid :0,
+            journalKey: ( jkey && Object.prototype.toString.call( jkey ) === '[object String]' )?`${jkey}`: "",
+            toDocumentSeqNr: (seqnb && Object.prototype.toString.call( seqnb ) === '[object Number]' ) ?seqnb: 0,
+            attachUbl:aubl
+        }
+    }
+}
+export const postInvoicesSend = () =>
+{
+    return {
+        method: "post",
+        header: {
+        },
+        query: {},
+        pathf: "",
+        id: id && ( Object.prototype.toString.call( id ) === '[object String]' || Objet.prototype.toString.call( id ) === '[object Number]' ) ? `${id}` : "",
+        path: "",
+        data: {}
+    }
 
+}
