@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import http from 'http';
 import https from 'https'
+
 export function axiosOctopus ( props )
 {
     let result = undefined;
@@ -64,7 +65,7 @@ export function axiosOctopus ( props )
             // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
             // - Browser only: FormData, File, Blob
             // - Node only: Stream, Buffer
-            data: JSON.stringify(data),
+            data: JSON.stringify( data ),
 
             // `timeout` specifies the number of milliseconds before the request times out.
             // If the request takes longer than `timeout`, the request will be aborted.
@@ -128,18 +129,18 @@ export const postAuthentication = ( uid, user, pwd ) =>
     }
 }
 
-export const getDossiers = (token) =>
+export const getDossiers = ( token ) =>
 {
     return {
         method: "get",
         header: {
-            Token: (token && Object.prototype.toString.call( token ) === '[object String]' )  ? `${token}` : ""
+            Token: ( token && Object.prototype.toString.call( token ) === '[object String]' ) ? `${token}` : ""
         },
         path: "dossiers"
     }
 }
 
-export const postDossiersToken = ( token, dossierId, localeId=0 ) =>
+export const postDossiersToken = ( token, dossierId, localeId = 0 ) =>
 {
     return {
         method: "post",
@@ -154,7 +155,7 @@ export const postDossiersToken = ( token, dossierId, localeId=0 ) =>
     }
 }
 
-export const postInvoicesBook = (did,htoken,bid,jkey,seqnb=0,aubl=false) =>
+export const postInvoicesBook = ( did, htoken, bid, jkey, seqnb = 0, aubl = false ) =>
 {
     return {
         method: "post",
@@ -162,27 +163,107 @@ export const postInvoicesBook = (did,htoken,bid,jkey,seqnb=0,aubl=false) =>
         id: ( did && ( Object.prototype.toString.call( did ) === '[object String]' || Objet.prototype.toString.call( did ) === '[object Number]' ) ) ? `${did}` : "",
         path: "invoices/book",
         header: {
-            dossierToken: ( htoken && Object.prototype.toString.call( htoken ) === '[object String]' )?`${htoken}`:""
+            dossierToken: ( htoken && Object.prototype.toString.call( htoken ) === '[object String]' ) ? `${htoken}` : ""
         },
         query: {
-            bookyearId: ( bid && Object.prototype.toString.call( bid ) === '[object Number]' ) ? bid :0,
-            journalKey: ( jkey && Object.prototype.toString.call( jkey ) === '[object String]' )?`${jkey}`: "",
-            toDocumentSeqNr: (seqnb && Object.prototype.toString.call( seqnb ) === '[object Number]' ) ?seqnb: 0,
-            attachUbl:aubl
+            bookyearId: ( bid && Object.prototype.toString.call( bid ) === '[object Number]' ) ? bid : 0,
+            journalKey: ( jkey && Object.prototype.toString.call( jkey ) === '[object String]' ) ? `${jkey}` : "",
+            toDocumentSeqNr: ( seqnb && Object.prototype.toString.call( seqnb ) === '[object Number]' ) ? seqnb : 0,
+            attachUbl: aubl
         }
     }
 }
-export const postInvoicesSend = () =>
+export const postInvoicesSend = ( id, token, dat ) =>
 {
     return {
         method: "post",
         header: {
+            dossierToken: ( token && Object.prototype.toString.call( token ) === '[object String]' ) ? `${token}` : ""
         },
-        query: {},
-        pathf: "",
-        id: id && ( Object.prototype.toString.call( id ) === '[object String]' || Objet.prototype.toString.call( id ) === '[object Number]' ) ? `${id}` : "",
-        path: "",
-        data: {}
+        pathf: "dossiers",
+        id: ( id && ( Object.prototype.toString.call( id ) === '[object String]' || Objet.prototype.toString.call( id ) === '[object Number]' ) ) ? `${id}` : "",
+        path: "invoices/send",
+        data: ( dat && Object.prototype.toString.call( dat ) === '[object Object]' ) ? dat : {}
     }
 
+}
+
+export const postInvoicesSendReportDeliveryState = ( id, token, dat ) =>
+{
+    return {
+        method: "post",
+        header: {
+            dossierToken: ( token && Object.prototype.toString.call( token ) === '[object String]' ) ? `${token}` : ""
+        },
+        pathf: "dossiers",
+        id: ( id && ( Object.prototype.toString.call( id ) === '[object String]' || Objet.prototype.toString.call( id ) === '[object Number]' ) ) ? `${id}` : "",
+        path: "invoices/send/report/deliverystate",
+        data: ( dat && Object.prototype.toString.call( dat ) === '[object Object]' ) ? dat : {}
+    }
+
+}
+
+export const getInvoicesExport = ( id, token, bid, jkey, seqnr, reinv, repdf, rexml ) =>
+{
+    return {
+        method: "get",
+        header: { dossierToken: token },
+        query: {
+            bookyearId: bid,
+            journalKey: jkey,
+            documentSeqNr: seqnr,
+            returnInvoice: reinv,
+            returnPdfDocument: repdf,
+            returnEInvoiceXml: rexml
+        },
+        pathf: "dossiers",
+        id: id,
+        path: "invoices/export"
+    }
+}
+
+export const getInvoicesModified = (id,token,bid,jkey,timestamp) =>
+{
+    return {
+        method: "get",
+        header: { dossierToken: token },
+        query: {
+            bookyearId: bid,
+            journalKey: jkey,
+            modifiedTimeStamp: timestamp
+        },
+        pathf: "dossiers",
+        id: id,
+        path: "invoices/export"
+    }
+}
+
+export const getInvoices = ( id, token, bid, jkey, seqnr) =>
+{
+    return {
+        method: "get",
+        header: { dossierToken: token },
+        query: {
+            bookyearId: bid,
+            journalKey: jkey,
+            documentSeqNr: seqnr
+        },
+        pathf: "dossiers",
+        id: id,
+        path: "invoices"
+    }
+}
+
+export const postInvoices = (id,token,dat) =>
+{
+    return {
+        method: "post",
+        header: {
+            dossierToken: ( token && Object.prototype.toString.call( token ) === '[object String]' ) ? `${token}` : ""
+        },
+        pathf: "dossiers",
+        id: ( id && ( Object.prototype.toString.call( id ) === '[object String]' || Objet.prototype.toString.call( id ) === '[object Number]' ) ) ? `${id}` : "",
+        path: "invoices",
+        data: ( dat && Object.prototype.toString.call( dat ) === '[object Object]' ) ? dat : {}
+    }
 }

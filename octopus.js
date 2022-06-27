@@ -43,7 +43,10 @@ export function listDossiers ()
     {
         console.log(v)
         getDossierss(v)
-    } ).catch( e => { console.log( e ) } );
+    } ).catch( e =>
+    {
+        //console.log( e )
+    } );
 }
 
 listDossiers();
